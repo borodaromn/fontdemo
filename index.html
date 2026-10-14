@@ -71,33 +71,49 @@
 <body class="min-h-screen flex flex-col justify-between p-4 selection:bg-console-neon selection:text-black">
 
   <!-- TOP BANNER -->
-  <div class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-4 text-center console-box-glow">
+  <div class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-3 text-center console-box-glow">
     <h2 class="text-lg md:text-xl font-extrabold text-console-neon tracking-wider console-glow font-mono uppercase">
       Ці шрифти намалювали наші учні на уроках інформатики.
     </h2>
   </div>
 
   <!-- HEADER / INFO BANNER -->
-  <header class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-4 console-box-glow flex flex-col md:flex-row justify-between items-center gap-4">
+  <header class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-3 console-box-glow flex flex-col md:flex-row justify-between items-center gap-4">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-lg bg-console-border flex items-center justify-center text-console-neon text-xl font-bold animate-pulse">
         <i class="fa-solid fa-terminal"></i>
       </div>
       <div>
         <h1 class="text-base font-bold tracking-wider text-console-neon uppercase">SCHOOL_FONTS // DEMO</h1>
-        <p class="text-xs text-console-dim font-mono">Автоматична ротація шрифтів з папки /fonts</p>
+        <p class="text-xs text-console-dim font-mono">Інтервал шрифту: <span id="speedDisplay" class="text-console-neon font-bold">5с</span></p>
       </div>
     </div>
 
+    <!-- INTERACTIVE CONTROL BUTTONS FOR MOBILE & DESKTOP -->
+    <div class="flex flex-wrap items-center justify-center gap-2">
+      <button id="btnPrev" class="px-3.5 py-2.5 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 flex items-center gap-1.5 shadow">
+        <i class="fa-solid fa-arrow-left"></i> Назад
+      </button>
+      <button id="btnFaster" class="px-3.5 py-2.5 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 flex items-center gap-1.5 shadow" title="Стрілка вгору">
+        <i class="fa-solid fa-bolt"></i> Швидше
+      </button>
+      <button id="btnSlower" class="px-3.5 py-2.5 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 flex items-center gap-1.5 shadow" title="Стрілка вниз">
+        <i class="fa-solid fa-hourglass-half"></i> Повільніше
+      </button>
+      <button id="btnNext" class="px-3.5 py-2.5 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 flex items-center gap-1.5 shadow">
+        Далі <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
     <!-- LARGE FONT & FOLDER DISPLAY -->
-    <div class="bg-console-bg border border-console-border px-6 py-3 rounded-lg text-center flex flex-col items-center justify-center min-w-[320px]">
+    <div class="bg-console-bg border border-console-border px-4 py-2.5 rounded-lg text-center flex flex-col items-center justify-center min-w-[280px]">
       <span class="text-[10px] uppercase text-console-dim tracking-widest font-mono">ПОТОЧНИЙ ШРИФТ (КАТАЛОГ / ФАЙЛ):</span>
-      <span id="currentFontLabel" class="tested-font text-xl font-extrabold text-console-neon console-glow tracking-wide mt-1">ЗАВАНТАЖЕННЯ...</span>
+      <span id="currentFontLabel" class="tested-font text-lg font-extrabold text-console-neon console-glow tracking-wide mt-0.5">ЗАВАНТАЖЕННЯ...</span>
     </div>
   </header>
 
   <!-- MAIN CONTENT: POEMS DISPLAY -->
-  <main class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 mb-4">
+  <main class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 mb-3">
     
     <!-- UKRAINIAN POEM PANEL -->
     <section class="bg-console-panel border border-console-border rounded-xl p-5 flex flex-col console-box-glow">
@@ -153,8 +169,11 @@
     let currentEnIndex = 0;
     let currentFontIndex = 0;
     let fontCounterID = 0;
+    
+    let fontIntervalMs = 5000; // Початковий інтервал 5 секунд
+    let fontTimer = null;
+    let poemTimer = null;
 
-    // Шляхи з врахуванням точного регістру папок і файлів на сервері
     const fontPaths = [
       // 10A
       "fonts/10A/2222_petrykov_dmytro.svg",
@@ -235,208 +254,4 @@
       "fonts/11a/shedenko_vlada_1.svg",
       "fonts/11a/shedenko_vlada_1_1.svg",
       "fonts/11a/shedenko_vlada_1_2.svg",
-      "fonts/11a/solomka_katya_2.svg",
-      "fonts/11a/treshchotka_marharyta.svg",
-      "fonts/11a/treshchotka_marharyta_1.svg",
-      "fonts/11a/tverdokhlib_denys.svg",
-      "fonts/11a/vsevolodkho.svg",
-      "fonts/11a/zolotar_mariya.svg",
-      "fonts/11a/zolotar_mariya_1.svg",
-      // 11b
-      "fonts/11b/hladun_mariya_1.svg",
-      "fonts/11b/nartenko_katya.svg",
-      "fonts/11b/nelin_kosya_1.svg",
-      "fonts/11b/potylitsyna_olena_1.svg",
-      "fonts/11b/savchenko_rodion_2_1.svg",
-      "fonts/11b/Savchenko_Rodion_new.svg",
-      "fonts/11b/tarasenko_sofiya.svg",
-      "fonts/11b/yermakova_valeriya_1.svg",
-      // 11v
-      "fonts/11v/chepets_anna.svg",
-      "fonts/11v/kasyan_valeriya.svg",
-      "fonts/11v/pakina_liliya_1.svg",
-      "fonts/11v/poluyan_maksym.svg",
-      "fonts/11v/polyshchuk_mykhayl.svg",
-      "fonts/11v/sirenko_valeriya.svg",
-      "fonts/11v/smolnitska_anzhelika.svg",
-      "fonts/11v/snisar_karina_1.svg"
-    ];
-
-    function parseSvgPathToOpentype(d) {
-      const path = new opentype.Path();
-      if (!d) return path;
-      const tokens = d.match(/([a-zA-Z])|([-+]?(?:\d+\.\d+|\d+|\.\d+)(?:[eE][-+]?\d+)?)/g);
-      if (!tokens) return path;
-
-      let i = 0, curX = 0, curY = 0, startX = 0, startY = 0, cmd = '';
-      while (i < tokens.length) {
-        if (/^[a-zA-Z]$/.test(tokens[i])) {
-          cmd = tokens[i];
-          i++;
-        }
-        switch (cmd) {
-          case 'M':
-            curX = parseFloat(tokens[i++]); curY = parseFloat(tokens[i++]);
-            startX = curX; startY = curY;
-            path.moveTo(curX, curY); cmd = 'L'; break;
-          case 'm':
-            curX += parseFloat(tokens[i++]); curY += parseFloat(tokens[i++]);
-            startX = curX; startY = curY;
-            path.moveTo(curX, curY); cmd = 'l'; break;
-          case 'L':
-            curX = parseFloat(tokens[i++]); curY = parseFloat(tokens[i++]);
-            path.lineTo(curX, curY); break;
-          case 'l':
-            curX += parseFloat(tokens[i++]); curY += parseFloat(tokens[i++]);
-            path.lineTo(curX, curY); break;
-          case 'H':
-            curX = parseFloat(tokens[i++]); path.lineTo(curX, curY); break;
-          case 'h':
-            curX += parseFloat(tokens[i++]); path.lineTo(curX, curY); break;
-          case 'V':
-            curY = parseFloat(tokens[i++]); path.lineTo(curX, curY); break;
-          case 'v':
-            curY += parseFloat(tokens[i++]); path.lineTo(curX, curY); break;
-          case 'C':
-            const x1 = parseFloat(tokens[i++]), y1 = parseFloat(tokens[i++]);
-            const x2 = parseFloat(tokens[i++]), y2 = parseFloat(tokens[i++]);
-            curX = parseFloat(tokens[i++]); curY = parseFloat(tokens[i++]);
-            path.curveTo(x1, y1, x2, y2, curX, curY); break;
-          case 'c':
-            const dx1 = curX + parseFloat(tokens[i++]), dy1 = curY + parseFloat(tokens[i++]);
-            const dx2 = curX + parseFloat(tokens[i++]), dy2 = curY + parseFloat(tokens[i++]);
-            curX += parseFloat(tokens[i++]); curY += parseFloat(tokens[i++]);
-            path.curveTo(dx1, dy1, dx2, dy2, curX, curY); break;
-          case 'Q':
-            const qx1 = parseFloat(tokens[i++]), qy1 = parseFloat(tokens[i++]);
-            curX = parseFloat(tokens[i++]); curY = parseFloat(tokens[i++]);
-            path.quadTo(qx1, qy1, curX, curY); break;
-          case 'q':
-            const dqx1 = curX + parseFloat(tokens[i++]), dqy1 = curY + parseFloat(tokens[i++]);
-            curX += parseFloat(tokens[i++]); curY += parseFloat(tokens[i++]);
-            path.quadTo(dqx1, dqy1, curX, curY); break;
-          case 'Z':
-          case 'z':
-            path.closePath(); curX = startX; curY = startY; break;
-          default:
-            i++; break;
-        }
-      }
-      return path;
-    }
-
-    async function loadAndApplyFont(pathStr) {
-      try {
-        const response = await fetch(pathStr);
-        if (!response.ok) throw new Error(`Файл не знайдено: ${pathStr}`);
-        const svgText = await response.text();
-
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(svgText, 'image/svg+xml');
-        const fontElem = xmlDoc.querySelector('font');
-        const fontFaceNode = xmlDoc.querySelector('font-face');
-
-        const unitsPerEm = parseInt(fontFaceNode?.getAttribute('units-per-em')) || 800;
-        const ascent = parseInt(fontFaceNode?.getAttribute('ascent')) || 800;
-        const descent = parseInt(fontFaceNode?.getAttribute('descent')) || 0;
-        const defaultAdv = parseInt(fontElem?.getAttribute('horiz-adv-x')) || 900;
-
-        const glyphList = [];
-        const notdefPath = new opentype.Path();
-        notdefPath.moveTo(100, 100); notdefPath.lineTo(700, 100);
-        notdefPath.lineTo(700, 700); notdefPath.lineTo(100, 700);
-        notdefPath.closePath();
-        glyphList.push(new opentype.Glyph({ name: '.notdef', unicode: 0, advanceWidth: defaultAdv, path: notdefPath }));
-
-        let hasSpace = false;
-        const glyphNodes = xmlDoc.querySelectorAll('glyph');
-        glyphNodes.forEach((node, index) => {
-          const unicodeAttr = node.getAttribute('unicode');
-          const glyphName = node.getAttribute('glyph-name') || `glyph_${index}`;
-          const d = node.getAttribute('d') || '';
-          const adv = parseInt(node.getAttribute('horiz-adv-x')) || defaultAdv;
-
-          if (!unicodeAttr && glyphName !== 'space') return;
-          const codePoint = unicodeAttr ? unicodeAttr.codePointAt(0) : (glyphName === 'space' ? 32 : null);
-          if (codePoint === 32) hasSpace = true;
-
-          if (codePoint !== null) {
-            glyphList.push(new opentype.Glyph({
-              name: glyphName,
-              unicode: codePoint,
-              advanceWidth: adv,
-              path: parseSvgPathToOpentype(d)
-            }));
-          }
-        });
-
-        if (!hasSpace) {
-          glyphList.push(new opentype.Glyph({ name: 'space', unicode: 32, advanceWidth: Math.round(defaultAdv * 0.5), path: new opentype.Path() }));
-        }
-
-        const font = new opentype.Font({
-          familyName: 'DynamicFont',
-          styleName: 'Regular',
-          unitsPerEm: unitsPerEm,
-          ascender: ascent,
-          descender: descent,
-          glyphs: glyphList
-        });
-
-        const blob = new Blob([font.toArrayBuffer()], { type: 'font/ttf' });
-        const blobUrl = URL.createObjectURL(blob);
-
-        fontCounterID++;
-        const uniqueFamilyName = `FontUnit_${fontCounterID}`;
-        const fontFace = new FontFace(uniqueFamilyName, `url(${blobUrl})`);
-        
-        await fontFace.load();
-        document.fonts.add(fontFace);
-
-        document.querySelectorAll('.tested-font').forEach(el => {
-          el.style.fontFamily = `"${uniqueFamilyName}", monospace`;
-        });
-
-        const lastSlash = pathStr.lastIndexOf('/');
-        const folderPart = lastSlash !== -1 ? pathStr.substring(0, lastSlash) : 'fonts';
-        const filePart = lastSlash !== -1 ? pathStr.substring(lastSlash + 1) : pathStr;
-
-        document.getElementById('currentFontLabel').innerHTML = `
-          <span class="block text-sm opacity-80">${folderPart} /</span>
-          <span class="text-lg">${filePart}</span>
-        `;
-        document.getElementById('systemStatus').textContent = `Шрифт завантажено успішно (${glyphNodes.length} гліфів)`;
-
-      } catch (err) {
-        console.error("Помилка завантаження шрифту:", pathStr, err);
-        document.getElementById('currentFontLabel').textContent = pathStr;
-        document.getElementById('systemStatus').textContent = `Файл не знайдено або помилка SVG`;
-      }
-    }
-
-    function updatePoems() {
-      document.getElementById('uaPoemText').textContent = uaPoems[currentUaIndex];
-      document.getElementById('uaPoemCounter').textContent = `0${currentUaIndex + 1} / 0${uaPoems.length}`;
-      currentUaIndex = (currentUaIndex + 1) % uaPoems.length;
-
-      document.getElementById('enPoemText').textContent = enPoems[currentEnIndex];
-      document.getElementById('enPoemCounter').textContent = `0${currentEnIndex + 1} / 0${enPoems.length}`;
-      currentEnIndex = (currentEnIndex + 1) % enPoems.length;
-    }
-
-    function rotateFonts() {
-      if (fontPaths.length === 0) return;
-      loadAndApplyFont(fontPaths[currentFontIndex]);
-      currentFontIndex = (currentFontIndex + 1) % fontPaths.length;
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      updatePoems();
-      rotateFonts();
-
-      setInterval(rotateFonts, 5000);
-      setInterval(updatePoems, 30000);
-    });
-  </script>
-</body>
-</html>
+      "fonts/
