@@ -71,33 +71,52 @@
 <body class="min-h-screen flex flex-col justify-between p-4 selection:bg-console-neon selection:text-black">
 
   <!-- TOP BANNER -->
-  <div class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-4 text-center console-box-glow">
+  <div class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-3 text-center console-box-glow">
     <h2 class="text-lg md:text-xl font-extrabold text-console-neon tracking-wider console-glow font-mono uppercase">
       Ці шрифти намалювали наші учні на уроках інформатики.
     </h2>
   </div>
 
   <!-- HEADER / INFO BANNER -->
-  <header class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-4 console-box-glow flex flex-col md:flex-row justify-between items-center gap-4">
+  <header class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-3 console-box-glow flex flex-col md:flex-row justify-between items-center gap-4">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-lg bg-console-border flex items-center justify-center text-console-neon text-xl font-bold animate-pulse">
         <i class="fa-solid fa-terminal"></i>
       </div>
       <div>
         <h1 class="text-base font-bold tracking-wider text-console-neon uppercase">SCHOOL_FONTS // DEMO</h1>
-        <p class="text-xs text-console-dim font-mono">Автоматична ротація шрифтів з папки /fonts</p>
+        <p class="text-xs text-console-dim font-mono">Інтервал: <span id="speedDisplay" class="text-console-neon">5с</span></p>
       </div>
     </div>
 
+    <!-- INTERACTIVE CONTROL BUTTONS -->
+    <div class="flex flex-wrap items-center justify-center gap-2">
+      <button id="btnPrev" class="px-3 py-2 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 shadow">
+        <i class="fa-solid fa-backward-step"></i> Попередній
+      </button>
+      <button id="btnPause" class="px-3 py-2 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 shadow">
+        <i class="fa-solid fa-pause" id="pauseIcon"></i> <span id="pauseText">ПАУЗА</span>
+      </button>
+      <button id="btnSlower" class="px-3 py-2 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 shadow">
+        <i class="fa-solid fa-minus"></i> Повільніше
+      </button>
+      <button id="btnFaster" class="px-3 py-2 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 shadow">
+        <i class="fa-solid fa-plus"></i> Швидше
+      </button>
+      <button id="btnNext" class="px-3 py-2 bg-console-bg hover:bg-console-border border border-console-border text-console-neon text-xs font-mono font-bold rounded-lg transition active:scale-95 shadow">
+        Наступний <i class="fa-solid fa-forward-step"></i>
+      </button>
+    </div>
+
     <!-- LARGE FONT & FOLDER DISPLAY -->
-    <div class="bg-console-bg border border-console-border px-6 py-3 rounded-lg text-center flex flex-col items-center justify-center min-w-[320px]">
+    <div class="bg-console-bg border border-console-border px-4 py-2.5 rounded-lg text-center flex flex-col items-center justify-center min-w-[280px]">
       <span class="text-[10px] uppercase text-console-dim tracking-widest font-mono">ПОТОЧНИЙ ШРИФТ (КАТАЛОГ / ФАЙЛ):</span>
-      <span id="currentFontLabel" class="tested-font text-xl font-extrabold text-console-neon console-glow tracking-wide mt-1">ЗАВАНТАЖЕННЯ...</span>
+      <span id="currentFontLabel" class="tested-font text-lg font-extrabold text-console-neon console-glow tracking-wide mt-0.5">ЗАВАНТАЖЕННЯ...</span>
     </div>
   </header>
 
   <!-- MAIN CONTENT: POEMS DISPLAY -->
-  <main class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 mb-4">
+  <main class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 mb-3">
     
     <!-- UKRAINIAN POEM PANEL -->
     <section class="bg-console-panel border border-console-border rounded-xl p-5 flex flex-col console-box-glow">
@@ -154,7 +173,11 @@
     let currentFontIndex = 0;
     let fontCounterID = 0;
 
-    // Шляхи з врахуванням точного регістру папок і файлів на сервері
+    let fontIntervalMs = 5000;
+    let fontTimer = null;
+    let isPaused = false;
+
+    // Шляхи з врахуванням точного регістру папок і файлів на сервері[cite: 5]
     const fontPaths = [
       // 10A
       "fonts/10A/2222_petrykov_dmytro.svg",
@@ -402,8 +425,8 @@
         const filePart = lastSlash !== -1 ? pathStr.substring(lastSlash + 1) : pathStr;
 
         document.getElementById('currentFontLabel').innerHTML = `
-          <span class="block text-sm opacity-80">${folderPart} /</span>
-          <span class="text-lg">${filePart}</span>
+          <span class="block text-xs opacity-80">${folderPart} /</span>
+          <span class="text-base">${filePart}</span>
         `;
         document.getElementById('systemStatus').textContent = `Шрифт завантажено успішно (${glyphNodes.length} гліфів)`;
 
@@ -424,17 +447,87 @@
       currentEnIndex = (currentEnIndex + 1) % enPoems.length;
     }
 
-    function rotateFonts() {
+    // Логіка зміни шрифтів
+    function showNextFont() {
       if (fontPaths.length === 0) return;
       loadAndApplyFont(fontPaths[currentFontIndex]);
       currentFontIndex = (currentFontIndex + 1) % fontPaths.length;
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      updatePoems();
-      rotateFonts();
+    function showPrevFont() {
+      if (fontPaths.length === 0) return;
+      currentFontIndex = (currentFontIndex - 2 + fontPaths.length) % fontPaths.length;
+      loadAndApplyFont(fontPaths[(currentFontIndex + 1) % fontPaths.length]);
+      currentFontIndex = (currentFontIndex + 1) % fontPaths.length;
+    }
 
-      setInterval(rotateFonts, 5000);
+    function resetFontTimer() {
+      if (fontTimer) clearInterval(fontTimer);
+      if (!isPaused) {
+        fontTimer = setInterval(showNextFont, fontIntervalMs);
+      }
+    }
+
+    function changeSpeed(delta) {
+      fontIntervalMs = Math.max(1000, Math.min(15000, fontIntervalMs + delta));
+      document.getElementById('speedDisplay').textContent = (fontIntervalMs / 1000) + 'с';
+      resetFontTimer();
+    }
+
+    // Обробники подій для кнопок
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btnNext').addEventListener('click', () => {
+        showNextFont();
+        resetFontTimer();
+      });
+
+      document.getElementById('btnPrev').addEventListener('click', () => {
+        showPrevFont();
+        resetFontTimer();
+      });
+
+      document.getElementById('btnPause').addEventListener('click', () => {
+        isPaused = !isPaused;
+        const pauseText = document.getElementById('pauseText');
+        const pauseIcon = document.getElementById('pauseIcon');
+        if (isPaused) {
+          if (fontTimer) clearInterval(fontTimer);
+          pauseText.textContent = 'ГРАТИ';
+          pauseIcon.className = 'fa-solid fa-play';
+        } else {
+          resetFontTimer();
+          pauseText.textContent = 'ПАУЗА';
+          pauseIcon.className = 'fa-solid fa-pause';
+        }
+      });
+
+      document.getElementById('btnFaster').addEventListener('click', () => {
+        changeSpeed(-1000);
+      });
+
+      document.getElementById('btnSlower').addEventListener('click', () => {
+        changeSpeed(1000);
+      });
+
+      // Підтримка стрілок на клавіатурі
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          showNextFont();
+          resetFontTimer();
+        } else if (e.key === 'ArrowLeft') {
+          showPrevFont();
+          resetFontTimer();
+        } else if (e.key === 'ArrowUp') {
+          changeSpeed(-1000);
+        } else if (e.key === 'ArrowDown') {
+          changeSpeed(1000);
+        }
+      });
+
+      updatePoems();
+      showNextFont();
+      resetFontTimer();
+
       setInterval(updatePoems, 30000);
     });
   </script>
