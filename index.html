@@ -50,7 +50,7 @@
       transition: all 0.3s ease;
       white-space: pre-wrap;
       word-break: break-word;
-      text-transform: uppercase; /* Великі літери */
+      text-transform: uppercase;
     }
     ::-webkit-scrollbar {
       width: 6px;
@@ -70,7 +70,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between p-4 selection:bg-console-neon selection:text-black">
 
-  <!-- TOP BANNER REQUIRED -->
+  <!-- TOP BANNER -->
   <div class="w-full max-w-6xl mx-auto bg-console-panel border border-console-border rounded-xl p-4 mb-4 text-center console-box-glow">
     <h2 class="text-lg md:text-xl font-extrabold text-console-neon tracking-wider console-glow font-mono uppercase">
       Ці шрифти намалювали наші учні на уроках інформатики.
@@ -89,7 +89,7 @@
       </div>
     </div>
 
-    <!-- LARGE FONT & FOLDER DISPLAY (WRITTEN IN CHILDREN'S FONT, UPPERCASE) -->
+    <!-- LARGE FONT & FOLDER DISPLAY -->
     <div class="bg-console-bg border border-console-border px-6 py-3 rounded-lg text-center flex flex-col items-center justify-center min-w-[320px]">
       <span class="text-[10px] uppercase text-console-dim tracking-widest font-mono">ПОТОЧНИЙ ШРИФТ (КАТАЛОГ / ФАЙЛ):</span>
       <span id="currentFontLabel" class="tested-font text-xl font-extrabold text-console-neon console-glow tracking-wide mt-1">ЗАВАНТАЖЕННЯ...</span>
@@ -133,7 +133,6 @@
   </footer>
 
   <script>
-    // --- 5 УКРАЇНСЬКИХ ВІРШІВ ---
     const uaPoems = [
       "Учітеся, брати мої,\nДумайте, читайте,\nІ чужому научайтесь,\nЙ свого не цурайтесь.\n\n[Т. Г. Шевченко]",
       "Реве та стогне Дніпр широкий,\nСердитий вітер завива,\nДодолу верби гне високі,\nГорами хвилю піддіва.\n\n[Т. Г. Шевченко]",
@@ -142,7 +141,6 @@
       "І все на світі треба пережити,\nІ кожен циферблат — це тільки мить.\nПовірить в те, що землю варто жити,\nІ знати те, що серце ще болить.\n\n[Ліна Костенко]"
     ];
 
-    // --- 5 АНГЛІЙСЬКИХ ВІРШІВ ---
     const enPoems = [
       "O wad some Power the giftie gie us\nTo see oursels as ithers see us!\nIt wad frae mony a blunder free us,\nAn' foolish notion.\n\n[Robert Burns]",
       "Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could.\n\n[Robert Frost]",
@@ -156,20 +154,20 @@
     let currentFontIndex = 0;
     let fontCounterID = 0;
 
-    // Повний масив усіх учнівських шрифтів згідно з наданою структурою
+    // Шляхи з врахуванням точного регістру папок і файлів на сервері
     const fontPaths = [
       // 10A
-      "fonts/10a/2222_petrykov_dmytro.svg",
-      "fonts/10a/danylyuk_veronika.svg",
-      "fonts/10a/melnyk_anton.svg",
-      "fonts/10a/moskalets_anna.svg",
-      "fonts/10a/orlov_nikita.svg",
-      "fonts/10a/pelepey_david.svg",
-      "fonts/10a/petrenko_vadym.svg",
-      "fonts/10a/petrykov_dmytro_1_1.svg",
-      "fonts/10a/savchenko_kiry.svg",
-      "fonts/10a/shamray_oleksi.svg",
-      "fonts/10a/yandola_yehor.svg",
+      "fonts/10A/2222_petrykov_dmytro.svg",
+      "fonts/10A/danylyuk_veronika.svg",
+      "fonts/10A/melnyk_anton.svg",
+      "fonts/10A/moskalets_anna.svg",
+      "fonts/10A/orlov_nikita.svg",
+      "fonts/10A/pelepey_david.svg",
+      "fonts/10A/petrenko_vadym.svg",
+      "fonts/10A/petrykov_dmytro_1_1.svg",
+      "fonts/10A/savchenko_kiry.svg",
+      "fonts/10A/shamray_oleksi.svg",
+      "fonts/10A/yandola_yehor.svg",
       // 10b
       "fonts/10b/basarab_sofiya.svg",
       "fonts/10b/harkusha_dasha.svg",
@@ -187,21 +185,21 @@
       "fonts/10d/lysenkr_oleksandr_1.svg",
       "fonts/10d/titarenko_l.svg",
       // 10E (v1)
-      "fonts/10e/v1/bereza_yelyzaveta_10_e.svg",
-      "fonts/10e/v1/dyadcheko_vlad.svg",
-      "fonts/10e/v1/fedosov_artem.svg",
-      "fonts/10e/v1/fedosov_artem_1.svg",
-      "fonts/10e/v1/kirichenko_serhiy_1.svg",
-      "fonts/10e/v1/kostenko_valeria.svg",
-      "fonts/10e/v1/lakyza_zakhar.svg",
-      "fonts/10e/v1/stetsyura_artem.svg",
-      "fonts/10e/v1/zhovtnizhko_lyera.svg",
+      "fonts/10E/v1/bereza_yelyzaveta_10_e.svg",
+      "fonts/10E/v1/dyadcheko_vlad.svg",
+      "fonts/10E/v1/fedosov_artem.svg",
+      "fonts/10E/v1/fedosov_artem_1.svg",
+      "fonts/10E/v1/kirichenko_serhiy_1.svg",
+      "fonts/10E/v1/kostenko_valeria.svg",
+      "fonts/10E/v1/lakyza_zakhar.svg",
+      "fonts/10E/v1/stetsyura_artem.svg",
+      "fonts/10E/v1/zhovtnizhko_lyera.svg",
       // 10E (v2)
-      "fonts/10e/v2/fedosov_artem_1_1.svg",
-      "fonts/10e/v2/kirichenko_serhiy_2.svg",
-      "fonts/10e/v2/kostenko_valeria_1.svg",
-      "fonts/10e/v2/stetsyura_artem_1.svg",
-      "fonts/10e/v2/zhovtonizhko_lera.svg",
+      "fonts/10E/v2/fedosov_artem_1_1.svg",
+      "fonts/10E/v2/kirichenko_serhiy_2.svg",
+      "fonts/10E/v2/kostenko_valeria_1.svg",
+      "fonts/10E/v2/stetsyura_artem_1.svg",
+      "fonts/10E/v2/zhovtonizhko_lera.svg",
       // 10h
       "fonts/10h/levada_artem.svg",
       "fonts/10h/mykhaylo_romashkan.svg",
@@ -250,7 +248,7 @@
       "fonts/11b/nelin_kosya_1.svg",
       "fonts/11b/potylitsyna_olena_1.svg",
       "fonts/11b/savchenko_rodion_2_1.svg",
-      "fonts/11b/savchenko_rodion_new.svg",
+      "fonts/11b/Savchenko_Rodion_new.svg",
       "fonts/11b/tarasenko_sofiya.svg",
       "fonts/11b/yermakova_valeriya_1.svg",
       // 11v
@@ -264,7 +262,6 @@
       "fonts/11v/snisar_karina_1.svg"
     ];
 
-    // Парсер SVG шляхів для opentype.js
     function parseSvgPathToOpentype(d) {
       const path = new opentype.Path();
       if (!d) return path;
@@ -328,7 +325,6 @@
       return path;
     }
 
-    // Завантаження шрифту та конвертація у TTF
     async function loadAndApplyFont(pathStr) {
       try {
         const response = await fetch(pathStr);
@@ -397,12 +393,10 @@
         await fontFace.load();
         document.fonts.add(fontFace);
 
-        // Застосування шрифту до елементів
         document.querySelectorAll('.tested-font').forEach(el => {
           el.style.fontFamily = `"${uniqueFamilyName}", monospace`;
         });
 
-        // Виведення назви каталогу та файлу великими літерами саме цим шрифтом
         const lastSlash = pathStr.lastIndexOf('/');
         const folderPart = lastSlash !== -1 ? pathStr.substring(0, lastSlash) : 'fonts';
         const filePart = lastSlash !== -1 ? pathStr.substring(lastSlash + 1) : pathStr;
@@ -420,7 +414,6 @@
       }
     }
 
-    // Оновлення віршів
     function updatePoems() {
       document.getElementById('uaPoemText').textContent = uaPoems[currentUaIndex];
       document.getElementById('uaPoemCounter').textContent = `0${currentUaIndex + 1} / 0${uaPoems.length}`;
@@ -431,20 +424,18 @@
       currentEnIndex = (currentEnIndex + 1) % enPoems.length;
     }
 
-    // Ротація шрифтів кожні 5 секунд
     function rotateFonts() {
       if (fontPaths.length === 0) return;
       loadAndApplyFont(fontPaths[currentFontIndex]);
       currentFontIndex = (currentFontIndex + 1) % fontPaths.length;
     }
 
-    // Ініціалізація
     window.addEventListener('DOMContentLoaded', () => {
       updatePoems();
       rotateFonts();
 
-      setInterval(rotateFonts, 5000);   // Зміна шрифту кожні 5 сек
-      setInterval(updatePoems, 30000);  // Зміна віршів кожні 30 сек
+      setInterval(rotateFonts, 5000);
+      setInterval(updatePoems, 30000);
     });
   </script>
 </body>
