@@ -124,7 +124,7 @@
         <span class="text-xs font-bold uppercase tracking-wider text-console-dim flex items-center gap-2">
           <i class="fa-solid fa-code text-console-neon"></i> УКРАЇНСЬКИЙ ВІРШ [30с]
         </span>
-        <span id="uaPoemCounter" class="text-[10px] font-mono text-console-dim bg-console-bg border border-console-border px-2 py-0.5 rounded">01 / 05</span>
+        <span id="uaPoemCounter" class="text-[10px] font-mono text-console-dim bg-console-bg border border-console-border px-2 py-0.5 rounded">01 / 10</span>
       </div>
       <div class="flex-1 bg-console-bg border border-console-border/60 rounded-lg p-4 flex items-center justify-center">
         <div id="uaPoemText" class="tested-font text-console-neon console-glow text-base md:text-lg leading-relaxed text-center"></div>
@@ -137,7 +137,7 @@
         <span class="text-xs font-bold uppercase tracking-wider text-console-dim flex items-center gap-2">
           <i class="fa-solid fa-code text-console-neon"></i> ENGLISH POEM [30s]
         </span>
-        <span id="enPoemCounter" class="text-[10px] font-mono text-console-dim bg-console-bg border border-console-border px-2 py-0.5 rounded">01 / 05</span>
+        <span id="enPoemCounter" class="text-[10px] font-mono text-console-dim bg-console-bg border border-console-border px-2 py-0.5 rounded">01 / 10</span>
       </div>
       <div class="flex-1 bg-console-bg border border-console-border/60 rounded-lg p-4 flex items-center justify-center">
         <div id="enPoemText" class="tested-font text-console-neon console-glow text-base md:text-lg leading-relaxed text-center"></div>
@@ -153,19 +153,49 @@
 
   <script>
     const uaPoems = [
+      // 1. Стандарт
       "Учітеся, брати мої,\nДумайте, читайте,\nІ чужому научайтесь,\nЙ свого не цурайтесь.\n\n[Т. Г. Шевченко]",
+      // 1. Capslock
+      "УЧІТЕСЯ, БРАТИ МОЇ,\nДУМАЙТЕ, ЧИТАЙТЕ,\nІ ЧУЖОМУ НАУЧАЙТЕСЬ,\nЙ СВОГО НЕ ЦУРАЙТЕСЬ.\n\n[Т. Г. ШЕВЧЕНКО]",
+      // 2. Стандарт
       "Реве та стогне Дніпр широкий,\nСердитий вітер завива,\nДодолу верби гне високі,\nГорами хвилю піддіва.\n\n[Т. Г. Шевченко]",
+      // 2. Capslock
+      "РЕВЕ ТА СТОГНЕ ДНІПР ШИРОКИЙ,\nСЕРДИТИЙ ВІТЕР ЗАВИВА,\nДОДОЛУ ВЕРБИ ГНЕ ВИСОКІ,\nГОРАМИ ХВИЛЮ ПІДДІВА.\n\n[Т. Г. ШЕВЧЕНКО]",
+      // 3. Стандарт
       "Contra spem spero! Без надії сподіваюсь!\nБуду жити! Геть думи сумні!\nЯ на гору круту крем'яную\nБуду камінь важкий підіймать...\n\n[Леся Українка]",
+      // 3. Capslock
+      "CONTRA SPEM SPERO! БЕЗ НАДІЇ СПОДІВАЮСЬ!\nБУДУ ЖИТИ! ГЕТЬ ДУМИ СУМНІ!\nЯ НА ГОРУ КРУТУ КРЕМ'ЯНУЮ\nБУДУ КАМІНЬ ВАЖКИЙ ПІДІЙМАТЬ...\n\n[ЛЕСЯ УКРАЇНКА]",
+      // 4. Стандарт
       "Земле, моя всеплодюча матір!\nСвітліші сили рухом живиш,\nТи наше серце в грудях тремтиш,\nТи наша пісня і наша гать.\n\n[Іван Франко]",
-      "І все на світі треба пережити,\nІ кожен циферблат — це тільки мить.\nПовірить в те, що землю варто жити,\nІ знати те, що серце ще болить.\n\n[Ліна Костенко]"
+      // 4. Capslock
+      "ЗЕМЛЕ, МОЯ ВСЕПЛОДЮЧА МАТІР!\nСВІТЛІШІ СИЛИ РУХОМ ЖИВИШ,\nТИ НАШЕ СЕРЦЕ В ГРУДЯХ ТРЕМТИШ,\nТИ НАША ПІСНЯ І НАША ГАТЬ.\n\n[ІВАН ФРАНКО]",
+      // 5. Стандарт
+      "І все на світі треба пережити,\nІ кожен циферблат — це тільки мить.\nПовірить в те, що землю варто жити,\nІ знати те, що серце ще болить.\n\n[Ліна Костенко]",
+      // 5. Capslock
+      "І ВСЕ НА СВІТІ ТРЕБА ПЕРЕЖИТИ,\nІ КОЖЕН ЦИФЕРБЛАТ — ЦЕ ТІЛЬКИ МИТЬ.\nПОВІРИТЬ В ТЕ, ЩО ЗЕМЛЮ ВАРТО ЖИТИ,\nІ ЗНАТИ ТЕ, ЩО СЕРЦЕ ЩЕ БОЛИТЬ.\n\n[ЛІНА КОСТЕНКО]"
     ];
 
     const enPoems = [
+      // 1. Standard
       "O wad some Power the giftie gie us\nTo see oursels as ithers see us!\nIt wad frae mony a blunder free us,\nAn' foolish notion.\n\n[Robert Burns]",
+      // 1. Capslock
+      "O WAD SOME POWER THE GIFTIE GIE US\nTO SEE OURSELS AS ITHERS SEE US!\nIT WAD FRAE MONY A BLUNDER FREE US,\nAN' FOOLISH NOTION.\n\n[ROBERT BURNS]",
+      // 2. Standard
       "Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could.\n\n[Robert Frost]",
+      // 2. Capslock
+      "TWO ROADS DIVERGED IN A YELLOW WOOD,\nAND SORRY I COULD NOT TRAVEL BOTH\nAND BE ONE TRAVELER, LONG I STOOD\nAND LOOKED DOWN ONE AS FAR AS I COULD.\n\n[ROBERT FROST]",
+      // 3. Standard
       "To see a World in a Grain of Sand\nAnd a Heaven in a Wild Flower,\nHold Infinity in the palm of your hand\nAnd Eternity in an hour.\n\n[William Blake]",
+      // 3. Capslock
+      "TO SEE A WORLD IN A GRAIN OF SAND\nAND A HEAVEN IN A WILD FLOWER,\nHOLD INFINITY IN THE PALM OF YOUR HAND\nAND ETERNITY IN AN HOUR.\n\n[WILLIAM BLAKE]",
+      // 4. Standard
       "Hope is the thing with feathers\nThat perches in the soul,\nAnd sings the tune without the words,\nAnd never stops at all.\n\n[Emily Dickinson]",
-      "She walks in beauty, like the night\nOf cloudless climes and starry skies;\nAnd all that’s best of dark and bright\nMeet in her aspect and her eyes.\n\n[Lord Byron]"
+      // 4. Capslock
+      "HOPE IS THE THING WITH FEATHERS\nTHAT PERCHES IN THE SOUL,\nAND SINGS THE TUNE WITHOUT THE WORDS,\nAND NEVER STOPS AT ALL.\n\n[EMILY DICKINSON]",
+      // 5. Standard
+      "She walks in beauty, like the night\nOf cloudless climes and starry skies;\nAnd all that’s best of dark and bright\nMeet in her aspect and her eyes.\n\n[Lord Byron]",
+      // 5. Capslock
+      "SHE WALKS IN BEAUTY, LIKE THE NIGHT\nOF CLOUDLESS CLIMES AND STARRY SKIES;\nAND ALL THAT’S BEST OF DARK AND BRIGHT\nMEET IN HER ASPECT AND HER EYES.\n\n[LORD BYRON]"
     ];
 
     let currentUaIndex = 0;
@@ -177,7 +207,6 @@
     let fontTimer = null;
     let isPaused = false;
 
-    // Шляхи з врахуванням точного регістру папок і файлів на сервері[cite: 5]
     const fontPaths = [
       // 10A
       "fonts/10A/2222_petrykov_dmytro.svg",
@@ -425,8 +454,8 @@
         const filePart = lastSlash !== -1 ? pathStr.substring(lastSlash + 1) : pathStr;
 
         document.getElementById('currentFontLabel').innerHTML = `
-          <span class="block text-xs opacity-80">${folderPart} /</span>
-          <span class="text-base">${filePart}</span>
+          <span class="block text-sm opacity-80">${folderPart} /</span>
+          <span class="text-lg">${filePart}</span>
         `;
         document.getElementById('systemStatus').textContent = `Шрифт завантажено успішно (${glyphNodes.length} гліфів)`;
 
@@ -439,15 +468,14 @@
 
     function updatePoems() {
       document.getElementById('uaPoemText').textContent = uaPoems[currentUaIndex];
-      document.getElementById('uaPoemCounter').textContent = `0${currentUaIndex + 1} / 0${uaPoems.length}`;
+      document.getElementById('uaPoemCounter').textContent = (currentUaIndex + 1).toString().padStart(2, '0') + ' / ' + uaPoems.length.toString().padStart(2, '0');
       currentUaIndex = (currentUaIndex + 1) % uaPoems.length;
 
       document.getElementById('enPoemText').textContent = enPoems[currentEnIndex];
-      document.getElementById('enPoemCounter').textContent = `0${currentEnIndex + 1} / 0${enPoems.length}`;
+      document.getElementById('enPoemCounter').textContent = (currentEnIndex + 1).toString().padStart(2, '0') + ' / ' + enPoems.length.toString().padStart(2, '0');
       currentEnIndex = (currentEnIndex + 1) % enPoems.length;
     }
 
-    // Логіка зміни шрифтів
     function showNextFont() {
       if (fontPaths.length === 0) return;
       loadAndApplyFont(fontPaths[currentFontIndex]);
@@ -474,7 +502,6 @@
       resetFontTimer();
     }
 
-    // Обробники подій для кнопок
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('btnNext').addEventListener('click', () => {
         showNextFont();
@@ -509,7 +536,6 @@
         changeSpeed(1000);
       });
 
-      // Підтримка стрілок на клавіатурі
       window.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') {
           showNextFont();
